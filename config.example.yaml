@@ -1,0 +1,45 @@
+# claude-team-router config
+
+# One port serves two kinds of traffic:
+#   - model starts with "claude-" (or no model)  -> forwarded untouched to
+#     anthropic_upstream (your real account; auth headers pass through)
+#   - any other model name                        -> the proxy pipeline below
+listen: "127.0.0.1:4003"
+anthropic_upstream: "https://api.anthropic.com"
+# claude_prefix: "claude-"
+
+retry_times: 2          # per-backend retries before failover
+retry_backoff: 1.0      # seconds; doubles each attempt
+# keepalive_secs: 20.0
+
+backends:
+  local:
+    base_url: "http://127.0.0.1:8000/v1"   # any OpenAI-compatible server
+    api_key_env: "LOCAL_BACKEND_API_KEY"   # the NAME of an env var holding
+                                           # the key; never the key itself
+    max_concurrent: 4                       # 0 = unlimited
+  # backup:
+  #   base_url: "https://api.example.com/v1"
+  #   api_key_env: "BACKUP_API_KEY"
+
+models:
+  # The alias is what Claude Code sends as `model`. Pick any names you like.
+  my-workhorse:
+    backend: local
+    upstream_model: "llama-3.3-70b-instruct"  # name sent to the backend
+    context_window: 131072
+    # max_output: 65536
+    vision: false
+    reasoning: none            # none | native (reasoning_content models)
+    # reasoning_effort: "high"
+    # strict_system_position: false
+    # max_message_chars: 24000
+    # extra_body: {}
+  my-thinker:
+    backend: local
+    upstream_model: "deepseek-r1"
+    context_window: 131072
+    vision: false
+    reasoning: native
+    reasoning_effort: "high"
+    fallbacks: [my-workhorse]  # chain walked when retries are exhausted
