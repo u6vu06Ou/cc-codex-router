@@ -9,6 +9,10 @@ name: anything starting with `claude-` (or empty) is forwarded untouched to
 the real Anthropic API; every other model is translated to OpenAI
 chat-completions and sent to the backend you configured for it.
 
+It also serves the OpenAI **Responses API** at `/v1/responses`, which is the
+dialect Codex CLI speaks — so the same configured models work inside Codex
+too. See [Codex quick start](#codex-quick-start) below.
+
 ## What you get
 
 - **Team routing** — `ANTHROPIC_BASE_URL=http://127.0.0.1:4003` once; the lead
@@ -39,6 +43,42 @@ use `/model main` (your lead) plus the generated `*-mate` teammates.
 Parallel batch work: `claude-team-router fanout run --task "Review: {item}"
 --items items.txt --out runs/r1 --model my-workhorse`, then read the results
 with `claude-team-router fanout status --out runs/r1`.
+
+## Codex quick start
+
+The same server speaks the OpenAI Responses API that Codex CLI uses. Point a
+Codex `model_provider` at the router and name one of your configured model
+aliases (here `my-workhorse`):
+
+```toml
+# ~/.codex/config.toml
+model = "my-workhorse"
+model_provider = "local-router"
+
+[model_providers.local-router]
+name = "claude-team-router"
+base_url = "http://127.0.0.1:4003/v1"
+wire_api = "responses"
+```
+
+Then `codex exec "your task"` runs against your own model: the router
+translates Responses input items (messages, `function_call`,
+`function_call_output`, `instructions`, tools) into chat-completions, and
+streams back the full event sequence Codex expects (`response.created`,
+`output_item.added`, `output_text.delta`,
+`function_call_arguments.delta/done`, `output_item.done`,
+`response.completed`, with usage). Non-streaming requests return one
+completed response object.
+
+Unlike `/v1/messages` there is no lead lane on `/v1/responses` (Anthropic's
+API has no Responses dialect): the `model` field must name a configured
+alias, and anything else gets a `404` whose message lists the configured
+aliases, so a typo is loud instead of silent.
+
+Verified locally with codex-cli 0.160.1 (`codex exec`): a plain Q&A turn and
+a task that forced a shell tool call (`function_call` →
+`function_call_output` → final answer) against a local
+OpenAI-chat-completions backend.
 
 ## Common backends
 
@@ -165,6 +205,14 @@ Anthropic 帳號直連，隊員走你設定的任何 OpenAI 相容後端（自�
 平行跑批次。常見後端（Ollama、LM Studio、vLLM、OpenRouter）的填法見
 上方「Common backends」一節；與其他路由工具的差別見
 「How this differs from other tools」。詳見 `skills/setup/SKILL.md`。
+
+現在也支援 **Codex CLI**（吃 OpenAI Responses API）：在
+`~/.codex/config.toml` 加一個 `model_provider` 指向本機（`wire_api =
+"responses"`，`model` 填 config 裡的模型別名）就能讓 Codex 跑你自己的
+模型——串流事件、工具呼叫（function_call 來回）、非串流模式都有。
+填錯模型名會得到 404 並列出可用別名。本機已用 codex-cli 0.160.1 實測
+一般問答與工具呼叫各一次。上方英文「Codex quick start」有現成
+config.toml 範例。
 
 ## License
 
