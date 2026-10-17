@@ -26,4 +26,4 @@ Config: one YAML (or JSON) file. `backends:` hold `base_url` + `api_key_env` (th
 
 ## Layout
 
-`claude_team_router/`: `config.py`, `translate.py`, `clamp.py`, `sanitize.py`, `stream.py`, `app.py` (router + proxy), `teamgen.py` (config -> `agents/*.md`), `fanout.py` (cross-platform parallel dispatch CLI). `tests/`: stdlib fake upstream, one test per kept fix.
+`claude_team_router/`: `config.py`, `translate.py`, `clamp.py`, `sanitize.py`, `stream.py`, `app.py` (router + proxy), `teamgen.py` (config -> `agents/*-mate.md`), `fanout.py` (cross-platform parallel dispatch CLI). `tests/`: stdlib fake upstream, one test per kept fix.

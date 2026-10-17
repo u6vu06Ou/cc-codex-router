@@ -9,7 +9,7 @@ def main(argv=None) -> int:
     if not argv or argv[0] in ("-h", "--help"):
         print(__doc__)
         print("\n  serve   --config config.yaml          start the router/proxy")
-        print("  teamgen --config config.yaml --out-dir <dir>   write agents/*.md")
+        print("  teamgen --config config.yaml --out-dir <dir>   write agents/<alias>-mate.md")
         print("  fanout  run|status ...                parallel task dispatch")
         return 0
     sub, rest = argv[0], argv[1:]

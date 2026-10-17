@@ -156,8 +156,6 @@ setup, and expect no guarantees if that behavior ever changes.
 
 - Config field reference lives in `config.example.yaml`; design decisions in
   `docs/DESIGN.md`. Keys are never stored in the config — only env var names.
-- The pre-commit hook runs an OSS-sensitive-content scan; hits are blocked.
-  `.oss-scan-allow` (not versioned) lists scan exceptions.
 
 ## 繁中速覽
 

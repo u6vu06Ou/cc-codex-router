@@ -1,6 +1,6 @@
 """teamgen: generate Claude Code teammate definitions from your config.
 
-Each alias in the config's `models:` table becomes one `agents/<name>.md`
+Each alias in the config's `models:` table becomes one `agents/<alias>-mate.md`
 file (frontmatter: name / description / model). The description is left for
 you to fill in — the generator cannot know what each of your models is good
 at; the body is a short sane-default teammate brief.
@@ -34,7 +34,7 @@ def _agent_name(alias: str) -> str:
 
 
 def generate(cfg: Config, out_dir: str, overwrite: bool = False) -> list:
-    """Write one agents/<name>.md per configured model. Returns file paths."""
+    """Write one agents/<alias>-mate.md per configured model. Returns file paths."""
     out = []
     target = Path(out_dir)
     target.mkdir(parents=True, exist_ok=True)
