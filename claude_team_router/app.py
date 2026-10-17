@@ -58,6 +58,7 @@ class Runtime:
         hdrs = {"content-type": "application/json"}
         if key:
             hdrs["Authorization"] = f"Bearer {key}"
+        hdrs.update(backend.resolved_headers())
         return hdrs
 
     def chat_url(self, backend) -> str:

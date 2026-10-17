@@ -140,3 +140,31 @@ def test_models_and_health(upstream):
     _, body = call(health_endpoint, make_request(app, "GET", "/health"))
     data = json.loads(body)
     assert data["ok"] and data["models"] == ["main", "spare"]
+
+
+def test_extra_headers(monkeypatch):
+    """Backend extra_headers: literal pass-through, env: reads, Bearer merge."""
+    from claude_team_router.config import BackendCfg
+
+    cfg = Config()
+    cfg.backends["b"] = BackendCfg(
+        name="b", base_url="http://127.0.0.1:9/v1",
+        api_key_env="EXTRA_HEADERS_TEST_KEY",
+        extra_headers={"x-org-id": "team-42",
+                       "x-alt-key": "env:EXTRA_HEADERS_TEST_ALT",
+                       "x-missing": "env:EXTRA_HEADERS_TEST_UNSET"})
+    monkeypatch.setenv("EXTRA_HEADERS_TEST_KEY", "k1")
+    monkeypatch.setenv("EXTRA_HEADERS_TEST_ALT", "k2")
+    rt = Runtime(cfg, httpx.AsyncClient(timeout=10.0))
+    hdrs = rt.backend_headers(cfg.backends["b"])
+    assert hdrs["Authorization"] == "Bearer k1"   # from api_key_env
+    assert hdrs["x-org-id"] == "team-42"          # literal, non-secret
+    assert hdrs["x-alt-key"] == "k2"              # env:NAME read
+    assert "x-missing" not in hdrs                # unset variable omitted
+
+    cfg.backends["c"] = BackendCfg(
+        name="c", base_url="http://127.0.0.1:9/v1",
+        api_key_env="EXTRA_HEADERS_TEST_KEY",
+        extra_headers={"Authorization": "Bearer k3"})  # intentional override
+    hdrs = rt.backend_headers(cfg.backends["c"])
+    assert hdrs["Authorization"] == "Bearer k3"

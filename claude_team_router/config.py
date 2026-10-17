@@ -48,9 +48,24 @@ class BackendCfg:
     base_url: str
     api_key_env: str = ""
     max_concurrent: int = 0  # 0 = unlimited
+    # Optional extra request headers for backends that need more than the
+    # default Bearer auth. Each value is either a literal (use for plain,
+    # non-secret headers such as an org/project id) or "env:NAME" to read the
+    # value from that environment variable. Applied after the Bearer header,
+    # so "Authorization" here intentionally overrides it.
+    extra_headers: dict = field(default_factory=dict)
 
     def api_key(self) -> str:
         return os.environ.get(self.api_key_env, "") if self.api_key_env else ""
+
+    def resolved_headers(self) -> dict:
+        out = {}
+        for name, value in self.extra_headers.items():
+            if isinstance(value, str) and value.startswith("env:"):
+                value = os.environ.get(value[4:], "")
+            if value:
+                out[name] = value
+        return out
 
 
 @dataclass
@@ -119,6 +134,7 @@ def load_config(path: str) -> Config:
             base_url=(b.get("base_url") or "").rstrip("/"),
             api_key_env=b.get("api_key_env", "") or "",
             max_concurrent=int(b.get("max_concurrent", 0) or 0),
+            extra_headers=dict(b.get("extra_headers") or {}),
         )
     for alias, m in (raw.get("models") or {}).items():
         cfg.models[alias] = ModelCfg(

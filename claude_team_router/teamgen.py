@@ -10,7 +10,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-from .config import Config
+from .config import Config, load_config
 
 TEMPLATE = """---
 name: {name}

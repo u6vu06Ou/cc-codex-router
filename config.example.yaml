@@ -16,8 +16,14 @@ backends:
   local:
     base_url: "http://127.0.0.1:8000/v1"   # any OpenAI-compatible server
     api_key_env: "LOCAL_BACKEND_API_KEY"   # the NAME of an env var holding
-                                           # the key; never the key itself
+                                           # the key; never the key itself.
+                                           # Omit (or leave empty) for local
+                                           # servers that need no key — the
+                                           # proxy then sends no auth header.
     max_concurrent: 4                       # 0 = unlimited
+    # extra_headers:                        # for backends needing more than
+    #   x-api-key: "env:MY_KEY_ENV"         # Bearer auth; value is literal
+    #   x-org-id: "team-42"                 # (non-secret) or "env:NAME".
   # backup:
   #   base_url: "https://api.example.com/v1"
   #   api_key_env: "BACKUP_API_KEY"
