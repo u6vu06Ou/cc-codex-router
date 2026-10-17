@@ -1,4 +1,4 @@
-"""CLI entry (`python -m claude_team_router ...` / installed script).
+"""CLI entry (`python -m cc_codex_router ...` / installed script).
 
 These run the real subcommand entry points in a subprocess — not just the
 internal functions — so a missing import on any path (e.g. calling
@@ -18,7 +18,7 @@ REPO = Path(__file__).resolve().parents[1]
 
 def run_cli(args, timeout=120):
     return subprocess.run(
-        [sys.executable, "-m", "claude_team_router", *args],
+        [sys.executable, "-m", "cc_codex_router", *args],
         cwd=REPO, capture_output=True, text=True, timeout=timeout)
 
 
@@ -79,7 +79,7 @@ def test_serve_cli_answers_health_then_stops(tmp_path):
         "models": {"probe-model": {"backend": "fake"}},
     }), encoding="utf-8")
     proc = subprocess.Popen(
-        [sys.executable, "-m", "claude_team_router", "serve",
+        [sys.executable, "-m", "cc_codex_router", "serve",
          "--config", str(cfg)],
         cwd=REPO, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     try:

@@ -1,4 +1,4 @@
-"""CLI entry: python -m claude_team_router {serve|teamgen|fanout} ..."""
+"""CLI entry: python -m cc_codex_router {serve|teamgen|fanout} ..."""
 from __future__ import annotations
 
 import sys
@@ -16,7 +16,7 @@ def main(argv=None) -> int:
     if sub == "serve":
         import argparse
         from .app import serve
-        ap = argparse.ArgumentParser(prog="claude-team-router serve")
+        ap = argparse.ArgumentParser(prog="cc-codex-router serve")
         ap.add_argument("--config", required=True)
         args = ap.parse_args(rest)
         serve(args.config)

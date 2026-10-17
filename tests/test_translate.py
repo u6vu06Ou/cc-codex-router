@@ -2,8 +2,8 @@
 unique tool ids, tool_result images, system hoisting, tools mapping."""
 import json
 
-from claude_team_router.config import ModelCfg
-from claude_team_router.translate import (THINKING_ONLY_PLACEHOLDER,
+from cc_codex_router.config import ModelCfg
+from cc_codex_router.translate import (THINKING_ONLY_PLACEHOLDER,
                                           translate_anthropic_to_openai)
 
 

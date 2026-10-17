@@ -1,7 +1,7 @@
 """Tool-argument sanitizing: nothing unparseable ever reaches upstream."""
 import json
 
-from claude_team_router.sanitize import sanitize_tool_arguments
+from cc_codex_router.sanitize import sanitize_tool_arguments
 
 
 def test_valid_json_passes_through():

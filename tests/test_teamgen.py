@@ -1,8 +1,8 @@
 """teamgen: config model list -> Claude Code agents/*.md definitions."""
 from pathlib import Path
 
-from claude_team_router.config import BackendCfg, Config, ModelCfg
-from claude_team_router.teamgen import _agent_name, generate
+from cc_codex_router.config import BackendCfg, Config, ModelCfg
+from cc_codex_router.teamgen import _agent_name, generate
 
 
 def cfg():

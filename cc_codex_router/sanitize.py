@@ -11,7 +11,7 @@ from __future__ import annotations
 import json
 import logging
 
-log = logging.getLogger("claude_team_router.sanitize")
+log = logging.getLogger("cc_codex_router.sanitize")
 
 _TEMPLATE_LEAK_MARKERS = (
     "</think>", "<think>", "<tool_call>", "</tool_call>",

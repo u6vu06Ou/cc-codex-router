@@ -1,7 +1,7 @@
 """Streaming hardening: the kept production fixes, one test each."""
 import json
 
-from claude_team_router.stream import (EMPTY_RETRY_NOTE, TRANSPORT_CUT_NOTE,
+from cc_codex_router.stream import (EMPTY_RETRY_NOTE, TRANSPORT_CUT_NOTE,
                                        collect_json, relay_stream)
 
 from conftest import (basic_anthropic_req, chunk_both, chunk_finish,

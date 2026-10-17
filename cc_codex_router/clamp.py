@@ -37,7 +37,7 @@ import logging
 from .config import Config, ModelCfg
 
 
-log = logging.getLogger("claude_team_router.clamp")
+log = logging.getLogger("cc_codex_router.clamp")
 
 CTX_SAFETY_MARGIN = 0.10
 MIN_OUTPUT_TOKENS = 16_384

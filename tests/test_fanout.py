@@ -3,7 +3,7 @@ import json
 import sys
 from pathlib import Path
 
-from claude_team_router.fanout import (extract_answer, main as fanout_main,
+from cc_codex_router.fanout import (extract_answer, main as fanout_main,
                                        slugify)
 
 ECHO_SHIM = r'''

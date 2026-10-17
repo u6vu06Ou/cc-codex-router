@@ -1,4 +1,4 @@
-"""Config loading for claude-team-router.
+"""Config loading for cc-codex-router.
 
 One YAML (or JSON) file describes backends and model aliases. API keys are
 never stored in the file: a backend names the environment variable that holds

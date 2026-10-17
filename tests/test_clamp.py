@@ -1,11 +1,11 @@
 """The context clamp suite: budget math, pinned task, boundary drops,
 quantized cut points, notices, adaptive max_tokens, reactive trim."""
-from claude_team_router.clamp import (CLAMP_DROP_QUANTUM, MIN_OUTPUT_TOKENS,
+from cc_codex_router.clamp import (CLAMP_DROP_QUANTUM, MIN_OUTPUT_TOKENS,
                                       TOOL_RESULT_SHRINK_CHARS,
                                       adaptive_max_tokens, clamp_context,
                                       ctx_budget, est_msg_tokens,
                                       est_request_tokens, shrink_messages)
-from claude_team_router.config import Config, ModelCfg
+from cc_codex_router.config import Config, ModelCfg
 
 
 def mdl(**over):

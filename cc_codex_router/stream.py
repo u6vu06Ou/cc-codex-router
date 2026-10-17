@@ -32,7 +32,7 @@ from .clamp import est_request_tokens, shrink_messages
 from .translate import unique_tool_id
 
 
-log = logging.getLogger("claude_team_router.stream")
+log = logging.getLogger("cc_codex_router.stream")
 
 RETRY_CODES = {429, 500, 502, 503}
 THINK_RUNAWAY_CHARS = 64_000  # thinking with zero visible output past this = cut + retry

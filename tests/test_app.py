@@ -5,10 +5,10 @@ import json
 import httpx
 from starlette.requests import Request
 
-from claude_team_router.app import (Runtime, count_tokens_endpoint,
+from cc_codex_router.app import (Runtime, count_tokens_endpoint,
                                     create_app, health_endpoint,
                                     messages_endpoint, models_endpoint)
-from claude_team_router.config import Config
+from cc_codex_router.config import Config
 
 from conftest import (FakeUpstream, chunk_finish, chunk_text, make_config,
                       parse_sse, run)
@@ -144,7 +144,7 @@ def test_models_and_health(upstream):
 
 def test_extra_headers(monkeypatch):
     """Backend extra_headers: literal pass-through, env: reads, Bearer merge."""
-    from claude_team_router.config import BackendCfg
+    from cc_codex_router.config import BackendCfg
 
     cfg = Config()
     cfg.backends["b"] = BackendCfg(

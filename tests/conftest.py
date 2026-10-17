@@ -20,8 +20,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import httpx
 import pytest
 
-from claude_team_router.app import Runtime
-from claude_team_router.config import BackendCfg, Config, ModelCfg
+from cc_codex_router.app import Runtime
+from cc_codex_router.config import BackendCfg, Config, ModelCfg
 
 
 def chunk_text(text, finish=None):

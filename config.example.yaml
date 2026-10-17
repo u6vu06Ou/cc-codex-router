@@ -1,4 +1,4 @@
-# claude-team-router config
+# cc-codex-router config
 
 # One port serves two kinds of traffic:
 #   - model starts with "claude-" (or no model)  -> forwarded untouched to

@@ -3,9 +3,9 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "claude-team-router"
+name = "cc-codex-router"
 version = "0.1.0"
-description = "One local Anthropic-compatible endpoint that routes Claude Code agent teams across your own model APIs"
+description = "One local OpenAI-compatible-model endpoint for Claude Code and Codex: agent-team routing across your own model APIs"
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
@@ -20,10 +20,12 @@ yaml = ["PyYAML>=6.0"]
 dev = ["pytest>=8.0", "PyYAML>=6.0"]
 
 [project.scripts]
-claude-team-router = "claude_team_router.__main__:main"
+cc-codex-router = "cc_codex_router.__main__:main"
+# Backward compatibility: keep the old entry point working for existing installs.
+claude-team-router = "cc_codex_router.__main__:main"
 
 [tool.setuptools.packages.find]
-include = ["claude_team_router*"]
+include = ["cc_codex_router*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

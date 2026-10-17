@@ -52,7 +52,7 @@ from .sanitize import sanitize_tool_arguments
 from .stream import RETRY_CODES, UpstreamError
 
 
-log = logging.getLogger("claude_team_router.responses")
+log = logging.getLogger("cc_codex_router.responses")
 
 # A small output cap + a reasoning model = the answer never arrives: the
 # thinking eats the entire budget first. Native-reasoning models therefore

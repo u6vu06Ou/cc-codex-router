@@ -4,8 +4,8 @@ import json
 import httpx
 from starlette.requests import Request
 
-from claude_team_router.app import Runtime, create_app, responses_endpoint
-from claude_team_router.responses import (DEFAULT_MIN_OUTPUT,
+from cc_codex_router.app import Runtime, create_app, responses_endpoint
+from cc_codex_router.responses import (DEFAULT_MIN_OUTPUT,
                                           NATIVE_REASONING_MIN_OUTPUT,
                                           responses_to_chat)
 

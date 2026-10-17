@@ -1,4 +1,4 @@
-# claude-team-router — design
+# cc-codex-router — design
 
 One local Anthropic-compatible endpoint that routes Claude Code traffic:
 
@@ -39,4 +39,4 @@ config, clamp, retries and failover. Ported fixes that are specific to it:
 
 ## Layout
 
-`claude_team_router/`: `config.py`, `translate.py`, `clamp.py`, `sanitize.py`, `stream.py`, `responses.py` (Codex's Responses dialect), `app.py` (router + proxy), `teamgen.py` (config -> `agents/*-mate.md`), `fanout.py` (cross-platform parallel dispatch CLI). `tests/`: stdlib fake upstream, one test per kept fix.
+`cc_codex_router/`: `config.py`, `translate.py`, `clamp.py`, `sanitize.py`, `stream.py`, `responses.py` (Codex's Responses dialect), `app.py` (router + proxy), `teamgen.py` (config -> `agents/*-mate.md`), `fanout.py` (cross-platform parallel dispatch CLI). `tests/`: stdlib fake upstream, one test per kept fix.

@@ -35,7 +35,7 @@ from .stream import UpstreamError, collect_json, relay_stream
 from .translate import translate_anthropic_to_openai
 
 
-log = logging.getLogger("claude_team_router")
+log = logging.getLogger("cc_codex_router")
 
 # hop-by-hop headers, plus anything httpx recomputes
 DROP_REQ = {"host", "content-length", "connection", "accept-encoding",

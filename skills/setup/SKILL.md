@@ -1,9 +1,9 @@
 ---
 name: setup
-description: Install and wire claude-team-router so Claude Code can split an agent team between the official Anthropic API and your own OpenAI-compatible model backends.
+description: Install and wire cc-codex-router so Claude Code can split an agent team between the official Anthropic API and your own OpenAI-compatible model backends.
 ---
 
-# claude-team-router setup
+# cc-codex-router setup
 
 Goal: one local endpoint, mixed team. Lead = your official Anthropic account,
 teammates = model APIs you already have (self-hosted or hosted).
@@ -31,7 +31,7 @@ pip install .[yaml]        # from the repo root; yaml extra is optional but
 ## 3. Start
 
 ```bash
-claude-team-router serve --config config.yaml
+cc-codex-router serve --config config.yaml
 # listening on 127.0.0.1:4003 by default; verify:
 # curl http://127.0.0.1:4003/health   # -> {"ok": true, "models": [...]}
 ```
@@ -52,7 +52,7 @@ claude
 ## 5. Generate teammates
 
 ```bash
-claude-team-router teamgen --config config.yaml --out ~/.claude/agents
+cc-codex-router teamgen --config config.yaml --out ~/.claude/agents
 ```
 
 One `<alias>-mate.md` per model, with a `description: TODO` for you to fill
